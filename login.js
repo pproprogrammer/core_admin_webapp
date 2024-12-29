@@ -25,7 +25,7 @@ loginForm.addEventListener('submit', async function (event) {
 
     try {
         // Send login credentials to the backend (replace with your API URL)
-        const response = await fetch('YOUR_BACKEND_LOGIN_API_URL', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzSB2QutK1lInO-rrC8zb5rqBrkgu2yE0kAROYCOE36ZUmAXQFXWT9tcehenZ_A8IWm/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
