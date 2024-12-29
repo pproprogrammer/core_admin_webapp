@@ -25,12 +25,13 @@ loginForm.addEventListener('submit', async function (event) {
 
     try {
         // Send login credentials to the backend (replace with your API URL)
-        const response = await fetch('https://script.google.com/macros/s/AKfycbzSB2QutK1lInO-rrC8zb5rqBrkgu2yE0kAROYCOE36ZUmAXQFXWT9tcehenZ_A8IWm/exec', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzEQKORKFct9c2heajli-C4n4KNB6OQErNSBwS681ZJ55zsjKwDrX8QqMCc8rSL_GHc/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password }),
+            mode: 'no-cors' // Add this line
         });
 
         // Parse the response
