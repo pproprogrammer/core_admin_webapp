@@ -1,13 +1,13 @@
- 3. JavaScript for Login Logic (login.js)
+
 const googleSignInButton = document.getElementById('google-sign-in');
 
- Google Sign-In Logic
+// Google Sign-In Logic
 googleSignInButton.addEventListener('click', () = {
-     Redirect to Google OAuth URL
-    window.location.href = 'YOUR_GOOGLE_OAUTH_URL';
+     //Redirect to Google OAuth URL
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=690842612634-g2n5l13j524pq1ct1ov1tnr7l369kjcp.apps.googleusercontent.com&redirect_uri=https://pproprogrammer.github.io/core_admin_webapp/&response_type=token&scope=email profile';
 });
 
- Manual Login Logic
+// Manual Login Logic
 const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', async (event) = {
     event.preventDefault();
