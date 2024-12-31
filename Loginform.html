@@ -3,27 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Login System</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f0f4f7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-color: #f4f6f9;
     }
     .container {
+      max-width: 400px;
+      margin: 10% auto;
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      width: 300px;
-      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     h1 {
+      text-align: center;
       margin-bottom: 20px;
     }
     .form-group {
@@ -31,16 +28,17 @@
     }
     input {
       width: calc(100% - 20px);
-      padding: 8px 10px;
+      padding: 10px;
       margin: 5px 0;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
     button {
+      width: 100%;
+      padding: 10px;
       background-color: #007BFF;
       color: white;
       border: none;
-      padding: 10px 15px;
       border-radius: 4px;
       cursor: pointer;
     }
@@ -53,10 +51,6 @@
     }
     .google-btn:hover {
       background-color: #a43426;
-    }
-    #dashboard {
-      display: none;
-      text-align: center;
     }
   </style>
 </head>
@@ -73,20 +67,11 @@
     <button class="google-btn" id="google-login">Login with Google</button>
   </div>
 
-  <div id="dashboard">
-    <h1>Welcome to Your Dashboard</h1>
-    <p>You are successfully logged in!</p>
-    <button id="logout-button">Logout</button>
-  </div>
-
   <script>
     const loginButton = document.getElementById('login-button');
     const googleLoginButton = document.getElementById('google-login');
-    const dashboard = document.getElementById('dashboard');
-    const loginContainer = document.getElementById('login-container');
-    const logoutButton = document.getElementById('logout-button');
 
-    // Login using username and password
+    // Login with Username and Password
     loginButton.addEventListener('click', async () => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -109,28 +94,21 @@
       const result = await response.json();
 
       if (result.success) {
-        showDashboard();
+        sessionStorage.setItem('username', username);
+        window.location.href = 'dashboard.html';
       } else {
-        alert(result.error || 'Login failed');
+        alert(result.error || 'Invalid login credentials');
       }
     });
 
-    // Login using Google Account
+    // Login with Google OAuth
     googleLoginButton.addEventListener('click', () => {
-      // Add Google login integration (Google OAuth API or Firebase Auth)
-      alert('Google Login is under construction!');
-    });
+      const clientId = '690842612634-g2n5l13j524pq1ct1ov1tnr7l369kjcp.apps.googleusercontent.com';
+      const redirectUri = window.location.origin + '/dashboard.html';
+      const scope = 'email profile';
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scope}`;
 
-    // Show dashboard
-    function showDashboard() {
-      loginContainer.style.display = 'none';
-      dashboard.style.display = 'block';
-    }
-
-    // Logout functionality
-    logoutButton.addEventListener('click', () => {
-      loginContainer.style.display = 'block';
-      dashboard.style.display = 'none';
+      window.location.href = authUrl;
     });
   </script>
 </body>
