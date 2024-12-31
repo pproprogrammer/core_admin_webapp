@@ -73,36 +73,74 @@
     const googleLoginButton = document.getElementById('google-login');
 
     // Login with Username and Password
-    loginButton.addEventListener('click', async () => {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
+    // loginButton.addEventListener('click', async () => {
+    //   const username = document.getElementById('username').value;
+    //   const password = document.getElementById('password').value;
 
-      if (!username || !password) {
+    //   if (!username || !password) {
+    //     alert('Please enter username and password');
+    //     return;
+    //   }
+
+    //   const response = await fetch('https://script.google.com/macros/s/AKfycbzNxp9BqQwGxFceQnn0gaFQEXGHiG_Uygo5Z5MSY1GapzUyxhWrQAF2sVx4XGoeyTwz/exec', { 
+    //     method: 'POST',
+    //     // headers: { 'Content-Type': 'application/json' },
+    // mode: 'no-cors',
+    //     body: JSON.stringify({
+    //       operation: 'login',
+    //       sheetName: 'Users',
+    //       data: { Username: username, Password: password }
+    //     })
+    //   });
+
+    //   const result = await response.json();
+
+    //   if (result.success) {
+    //     sessionStorage.setItem('username', username);
+    //     window.location.href = 'dashboard.html';
+    //   } else {
+    //     alert(result.error || 'Invalid login credentials');
+    //   }
+    // });
+
+loginButton.addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (!username || !password) {
         alert('Please enter username and password');
         return;
-      }
+    }
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbzNxp9BqQwGxFceQnn0gaFQEXGHiG_Uygo5Z5MSY1GapzUyxhWrQAF2sVx4XGoeyTwz/exec', { 
-        method: 'POST',
-        // headers: { 'Content-Type': 'application/json' },
-    mode: 'no-cors',
-        body: JSON.stringify({
-          operation: 'login',
-          sheetName: 'Users',
-          data: { Username: username, Password: password }
-        })
-      });
+    try {
+        const response = await fetch('YOUR_SCRIPT_URL', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                operation: 'login',
+                sheetName: 'Users',
+                data: { Username: username, Password: password }
+            })
+        });
 
-      const result = await response.json();
+        console.log(response); // Log raw response for debugging
 
-      if (result.success) {
-        sessionStorage.setItem('username', username);
-        window.location.href = 'dashboard.html';
-      } else {
-        alert(result.error || 'Invalid login credentials');
-      }
-    });
+        const result = await response.json(); // Parse as JSON
+        console.log(result); // Log parsed response
 
+        if (result.success) {
+            sessionStorage.setItem('username', username);
+            window.location.href = 'dashboard.html';
+        } else {
+            alert(result.error || 'Invalid login credentials');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while logging in.');
+    }
+});
+
+    
     // Login with Google OAuth
     googleLoginButton.addEventListener('click', () => {
       const clientId = '690842612634-g2n5l13j524pq1ct1ov1tnr7l369kjcp.apps.googleusercontent.com';
